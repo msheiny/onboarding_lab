@@ -1,0 +1,3 @@
+Template, Hostname, Platform, Command
+
+srl_linux_show_version.textfsm, .*, srl_linux, sh[[ow]] ver[[sion]]

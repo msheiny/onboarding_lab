@@ -1,0 +1,28 @@
+---
+sync_devices:
+  hostname:
+    commands:
+      - command: "show version"
+        parser: "textfsm"
+        jpath: "[*].Hostname"
+  serial:
+    commands:
+      - command: "show version"
+        parser: "textfsm"
+        jpath: "[*].Serial_Number"
+  device_type:
+    commands:
+      - command: "show version"
+        parser: "textfsm"
+        jpath: "[*].Chassis_Type"
+  mgmt_interface:
+    commands:
+      - command: "show interface brief | as json"
+        parser: "none"
+        jpath: "interfaces[?subinterfaces[].address[?type=='IPv4' && starts_with(prefix, `{{ obj }}``)]].name"
+  mask_length:
+    commands:
+      - command: "show interface brief | as json"
+        parser: "none"
+        post_processor: "{{ interface_data.subinterfaces[0].address | selectattr('type', 'equalto', 'IPv4') | selectattr('prefix', 'search', obj) | map(attribute='prefix') | first | extract_prefix }}"
+        iterable_type: "int"

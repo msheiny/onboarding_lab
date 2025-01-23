@@ -1,0 +1,23 @@
+Value Hostname (\S+)
+Value Chassis_Type (.*)
+Value Part_Number (.*)
+Value Serial_Number (.*)
+Value System_HW_MAC_Address (\S+)
+Value Software_Version (\S+)
+Value Build_Number (\S+)
+Value Architecture (\S+)
+Value Last_Booted (\S+)
+Value Total_Memory (\d+ kB)
+Value Free_Memory (\d+ kB)
+
+Start
+  ^Hostname\s+:\s+${Hostname}
+  ^Chassis Type\s+:\s+${Chassis_Type}
+  ^Part Number\s+:\s+${Part_Number}
+  ^Serial Number\s+:\s+${Serial_Number}
+  ^System HW MAC Address\s+:\s+${System_HW_MAC_Address}
+  ^Software Version\s+:\s+${Software_Version}
+  ^Build Number\s+:\s+${Build_Number}
+  ^Architecture\s+:\s+${Architecture}
+  ^Last Booted\s+:\s+${Last_Booted}
+  ^Total Memory\s+:\s+${Total_Memory} -> Record
